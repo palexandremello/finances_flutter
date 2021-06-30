@@ -45,61 +45,68 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Column(
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(labelText: 'Título'),
-              controller: _titleController,
-              onSubmitted: (_) => _submitForm(),
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'Valor (R\$)'),
-              keyboardType: TextInputType.numberWithOptions(
-                decimal: true,
+    return SingleChildScrollView(
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        elevation: 5,
+        child: Padding(
+          padding: EdgeInsets.only(
+              top: 10,
+              right: 10,
+              left: 10,
+              bottom: 10 + MediaQuery.of(context).viewInsets.bottom),
+          child: Column(
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(labelText: 'Título'),
+                controller: _titleController,
+                onSubmitted: (_) => _submitForm(),
               ),
-              controller: _valueController,
-              onSubmitted: (_) => _submitForm(),
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(_selectedDate == null
-                      ? 'Nenhum data selecionada!'
-                      : DateFormat('d/M/y').format(_selectedDate)),
+              TextField(
+                decoration: InputDecoration(labelText: 'Valor (R\$)'),
+                keyboardType: TextInputType.numberWithOptions(
+                  decimal: true,
                 ),
-                TextButton(
-                  onPressed: _showDatePicker,
-                  child: Text(
-                    'Selecionar Data',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                controller: _valueController,
+                onSubmitted: (_) => _submitForm(),
+              ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(_selectedDate == null
+                        ? 'Nenhum data selecionada!'
+                        : DateFormat('d/M/y').format(_selectedDate)),
+                  ),
+                  TextButton(
+                    onPressed: _showDatePicker,
+                    child: Text(
+                      'Selecionar Data',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    style: TextButton.styleFrom(primary: Colors.purple),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    child: Text('Nova transação'),
+                    onPressed: _submitForm,
+                    style: ElevatedButton.styleFrom(
+                      primary:
+                          Colors.purple, //change background color of button
+                      onPrimary: Colors.white, //change text color of button
                     ),
                   ),
-                  style: TextButton.styleFrom(primary: Colors.purple),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  child: Text('Nova transação'),
-                  onPressed: _submitForm,
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.purple, //change background color of button
-                    onPrimary: Colors.white, //change text color of button
-                  ),
-                ),
-              ],
-            )
-          ],
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
