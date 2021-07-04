@@ -3,7 +3,7 @@ import 'package:personal_finances/components/transaction_item.dart';
 import 'package:personal_finances/models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
-  List<Transaction> transactions;
+  final List<Transaction> transactions;
   final void Function(String) onRemove;
 
   TransactionList(this.transactions, this.onRemove);
@@ -36,13 +36,14 @@ class TransactionList extends StatelessWidget {
               );
             },
           )
-        : ListView.builder(
-            itemCount: transactions.length,
-            itemBuilder: (ctx, index) {
-              final transaction = transactions[index];
+        : ListView(
+            children: transactions.map((tr) {
               return TransactionItem(
-                  transaction: transaction, onRemove: onRemove);
-            },
+                transaction: tr,
+                key: ValueKey(tr.id),
+                onRemove: onRemove,
+              );
+            }).toList(),
           );
   }
 }
