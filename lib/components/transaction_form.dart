@@ -8,7 +8,10 @@ class TransactionForm extends StatefulWidget {
   TransactionForm(this.onSubmit);
 
   @override
-  _TransactionFormState createState() => _TransactionFormState();
+  _TransactionFormState createState() {
+    print("create State");
+    return _TransactionFormState();
+  }
 }
 
 class _TransactionFormState extends State<TransactionForm> {
@@ -17,6 +20,23 @@ class _TransactionFormState extends State<TransactionForm> {
   final _valueController = TextEditingController();
 
   DateTime _selectedDate = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    print("initState() TransactionForm");
+  }
+
+  @override
+  void didUpdateWidget(Widget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print("didUpdateWidget() ");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   _submitForm() {
     final title = _titleController.text;
